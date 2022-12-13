@@ -11,6 +11,10 @@ gem 'pg', '~> 1.1'
 
 gem 'puma', '~> 5.0'
 
+gem 'devise'
+
+gem 'cancancan'
+
 gem 'importmap-rails'
 
 gem 'turbo-rails'
