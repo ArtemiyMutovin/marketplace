@@ -1,7 +1,9 @@
 class Seller::ProductsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, unless: :devise_controller?
   before_action :find_product, only: %i[show edit update destroy]
   before_action :set_product, only: %i[show edit update destroy]
+
+  authorize_resource
 
   def index
     @products = current_user.products

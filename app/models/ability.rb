@@ -21,6 +21,9 @@ class Ability
   end
 
   def seller_abilities
-    can :manage, :all
+    can :read, :all
+    can :create, Product
+    can :update, Product, seller: user
+    can :destroy, Product, seller: user
   end
 end

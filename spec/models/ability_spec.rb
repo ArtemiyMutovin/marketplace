@@ -5,9 +5,18 @@ RSpec.describe Ability, type: :model do
 
   describe 'seller' do
     let(:user) { create :seller, company: company }
+    let(:other) { create :seller, :other, company: company }
     let(:company) { create(:company) }
+    let(:category) { create(:category) }
+    let(:product) { create :product, seller: user, category: category }
 
-    it { is_expected.to be_able_to :manage, :all }
+    it { is_expected.not_to be_able_to :manage, :all }
+
+    it { is_expected.to be_able_to :update, create(:product, seller: user, category: category), seller: user }
+    it { is_expected.not_to be_able_to :update, create(:product, seller: other, category: category), seller: user }
+
+    it { is_expected.to be_able_to :destroy, create(:product, seller: user, category: category), seller: user }
+    it { is_expected.not_to be_able_to :destroy, create(:product, seller: other, category: category), seller: user }
   end
 
   describe 'user' do
