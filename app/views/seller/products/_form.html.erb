@@ -1,0 +1,21 @@
+
+<%= form_with model: [:seller, @product], data: {turbo: false}, local: true do |f| %>
+  <%= render 'shared/errors', resource: @product  %>
+
+  <h2><p>
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </p></h2><br>
+
+  <h2><p>
+    <%= f.label :price %><br>
+    <%= f.number_field :price %>
+  </p></h2><br>
+
+  <h2><p>
+    <%= f.label :category_id %><br>
+    <%= f.collection_select :category_id, Category.all, :id, :title, prompt: true %>
+  </p></h2><br>
+
+  <h3><p><%= f.submit  %></p></h3>
+<% end %>
