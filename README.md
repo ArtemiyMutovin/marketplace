@@ -7,6 +7,7 @@ Things you may want to cover:
 
 * Entities:
   User,
+  Company,
   Product. 
   
 * Ruby version

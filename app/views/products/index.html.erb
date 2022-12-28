@@ -1,0 +1,19 @@
+  <div>
+    <table class="products">
+      <tr>
+        <td>TITLE</td>
+        <td>PRICE</td>
+        <td>CATEGORY</td>
+        <td>SELLER</td>
+      </tr>
+      <% @products.each do |product| %>
+        <tr>
+          <th><%= product.title %></th>
+          <th><%= product.price %>$</th>
+          <th><%= product.category.title %></th>
+          <th><%= product.seller.first_name %> <%= product.seller.last_name %></th>
+          <th><%= button_to 'Buy', buy_product_path(product), class:'btn btn-success'  %></th>
+        </tr>
+      <% end %>
+    </table>
+  </div>

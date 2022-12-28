@@ -1,0 +1,27 @@
+
+<h2><p>
+  <strong>Title:</strong>
+  <%= @product.title %>
+</p></h2>
+
+<h2><p>
+  <strong>Category:</strong>
+  <%= @product.category.title %>
+</p></h2>
+
+<h2><p>
+  <strong>Price:</strong>
+  <%= @product.price %>$
+</p></h2>
+
+<h2><p>
+  <strong>Seller:</strong>
+  <%= @product.seller.first_name %> <%= @product.seller.last_name %>
+</p></h2>
+
+<h2><p>
+  <strong>Seller company:</strong>
+  <%= @product.seller.company.name %>
+</p></h2>
+
+<h2><%= link_to 'Back home', seller_products_path %></h2>

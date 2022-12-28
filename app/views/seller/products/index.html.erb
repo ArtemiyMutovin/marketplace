@@ -1,0 +1,30 @@
+<% if current_user %>
+  <h2 class="button"><%= link_to "Create new product", new_seller_product_path, class:'btn btn-success' %></h2>
+  <div>
+    <table class="products">
+      <tr>
+        <td>TITLE</td>
+        <td>PRICE</td>
+        <td>CATEGORY</td>
+        <td>SELLER</td>
+      </tr>
+      <% @products.each do |product| %>
+        <tr>
+          <th><%= product.title %></th>
+          <th><%= product.price %>$</th>
+          <th><%= product.category.title %></th>
+          <th><%= product.seller.first_name %> <%= product.seller.last_name %></th>
+          <th><%= link_to 'Edit', edit_seller_product_path(product), class:'btn btn-warning'  %></th>
+          <th><%= link_to 'Delete', seller_product_path(product),
+                          data: {"turbo-method": :delete},
+                          class:'btn btn-danger'  %></th>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+<% end %>
+
+
+
+
+
