@@ -14,16 +14,8 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
-      - name: Install Rubocop
-        run: gem install rubocop
-      - name: Install rubocop-performance
-        run: gem install rubocop-performance
-      - name: Install rubocop-rails
-        run: gem install rubocop-rails
-      - name: Install rubocop-rspec
-        run: gem install rubocop-rspec
-      - name: Check code
-        run: rubocop
+        name: Check code
+        run: bundle exec rubocop
   rspec-test:
     name: Rspec
     needs: rubocop-test
