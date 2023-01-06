@@ -48,6 +48,7 @@ group :development, :test do
   gem 'bundler-audit'
   gem 'debug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails'
+  gem 'rails-controller-testing'
   gem 'rspec-rails', '~> 6.0.0'
   gem 'ruby_audit'
 end
@@ -65,7 +66,6 @@ end
 group :test do
   gem 'capybara'
   gem 'database_cleaner-active_record'
-  gem 'rails-controller-testing'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers', '~> 5.1.0'
   gem 'webdrivers'
