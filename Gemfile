@@ -48,8 +48,6 @@ group :development, :test do
   gem 'bundler-audit'
   gem 'debug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails'
-  gem 'rails-controller-testing'
-  gem 'rspec-rails', git: 'git@github.com:rspec/rspec-rails.git', branch: '6-0-maintenance'
   gem 'ruby_audit'
 end
 
@@ -69,4 +67,6 @@ group :test do
   gem 'selenium-webdriver'
   gem 'shoulda-matchers', '~> 5.1.0'
   gem 'webdrivers'
+  gem 'rails-controller-testing'
+  gem 'rspec-rails', git: 'git@github.com:rspec/rspec-rails.git', branch: '6-0-maintenance'
 end
