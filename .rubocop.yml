@@ -9,7 +9,7 @@ AllCops:
     - 'bin/**/*'
     - 'node_modules/**/*'
     - 'config/initializers/devise.rb'
-    - 'vendor/**/*.rb'
+    - 'vendor/bundle/**/*'
 
 Metrics/BlockLength:
   Exclude:
