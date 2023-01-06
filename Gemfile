@@ -64,9 +64,9 @@ end
 group :test do
   gem 'capybara'
   gem 'database_cleaner-active_record'
+  gem 'rails-controller-testing'
+  gem 'rspec-rails', git: 'git@github.com:rspec/rspec-rails.git', branch: '6-0-maintenance'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers', '~> 5.1.0'
   gem 'webdrivers'
-  gem 'rails-controller-testing'
-  gem 'rspec-rails', git: 'git@github.com:rspec/rspec-rails.git', branch: '6-0-maintenance'
 end
