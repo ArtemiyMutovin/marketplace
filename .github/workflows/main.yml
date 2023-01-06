@@ -1,45 +1,12 @@
-# This workflow uses actions that are not certified by GitHub.  They are
-# provided by a third-party and are governed by separate terms of service,
-# privacy policy, and support documentation.
-#
-# This workflow will install a prebuilt Ruby version, install dependencies, and
-# run tests and linters.
-name: "Ruby on Rails CI"
-on:
-  push:
-    branches: [ "AMW-34_create_github_actions" ]
-  pull_request:
-    branches: [ "AMW-34_create_github_actions" ]
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    services:
-      postgres:
-        image: postgres:11-alpine
-        ports:
-          - "5432:5432"
-        env:
-          POSTGRES_DB: rails_test
-          POSTGRES_USER: rails
-          POSTGRES_PASSWORD: password
-    env:
-      RAILS_ENV: test
-      DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-      # Add or replace dependency steps here
-      - name: Install Ruby and gems
-        uses: ruby/setup-ruby@ee2113536afb7f793eed4ce60e8d3b26db912da4 # v1.127.0
-        with:
-          bundler-cache: true
-      # Add or replace database setup steps here
-      - name: Set up database schema
-        run: bin/rails db:schema:load
-      # Add or replace test runners here
-      - name: Run tests
-        run: bin/rake
+env:
+  RUBY_VERSION: 3.0.0
+  POSTGRESQL_USERNAME: postgres
+  POSTGRESQL_PASSWORD: postgres
+  POSTGRES_DB: postgres
 
+name: Rails tests
+on: [push,pull_request]
+jobs:
   rubocop-test:
     name: Rubocop
     runs-on: ubuntu-latest
@@ -58,20 +25,58 @@ jobs:
         run: gem install rubocop-rspec
       - name: Check code
         run: rubocop
-
-  lint:
+  rspec-test:
+    name: Rspec
+    needs: rubocop-test
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:latest
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        env:
+          POSTGRES_USER: ${{ env.POSTGRESQL_USERNAME }}
+          POSTGRES_PASSWORD: ${{ env.POSTGRESQL_PASSWORD }}
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-      - name: Install Ruby and gems
-        uses: ruby/setup-ruby@ee2113536afb7f793eed4ce60e8d3b26db912da4 # v1.127.0
+      - uses: actions/checkout@v1
+      - uses: actions/setup-ruby@v1
         with:
-          bundler-cache: true
-      # Add or replace any other lints here
-      - name: Security audit dependencies
-        run: bundle exec bundle audit --update
-      - name: Security audit application code
-        run: bundle exec brakeman -q -w2
-      - name: Lint Ruby files
-        run: bundle exec rubocop --parallel
+          ruby-version: ${{ env.RUBY_VERSION }}
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14.15.4
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          sudo apt-get -yqq install libpq-dev build-essential libcurl4-openssl-dev
+          gem install bundler:2.1.4
+          bundle install --jobs 4 --retry 3
+          yarn install
+      - name: Setup Database
+        run: |
+          cp config/database.yml.github-actions config/database.yml
+          bundler exec rails db:create
+          bundle exec rake db:schema:load
+        env:
+          RAILS_ENV: test
+          POSTGRES_USER: ${{ env.POSTGRESQL_USERNAME }}
+          POSTGRES_PASSWORD: ${{ env.POSTGRESQL_PASSWORD }}
+          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+      - name: Run tests
+        run: COVERAGE=true bundle exec rspec  --require rails_helper
+        env:
+          RAILS_ENV: test
+          POSTGRES_USER: ${{ env.POSTGRESQL_USERNAME }}
+          POSTGRES_PASSWORD: ${{ env.POSTGRESQL_PASSWORD }}
+          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+      - name: Upload coverage results
+        uses: actions/upload-artifact@master
+        if: always()
+        with:
+          name: coverage report
+          path: coverage
