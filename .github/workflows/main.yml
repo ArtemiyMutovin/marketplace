@@ -12,6 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: ruby/setup-ruby@v1
+      - run: bundle exec rake
       - name: Install Rubocop
         run: gem install rubocop
       - name: Install rubocop-performance
@@ -42,6 +43,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: ruby/setup-ruby@v1
+      - run: bundle exec rake
       - uses: actions/setup-node@v1
         with:
           node-version: 14.15.4
@@ -49,8 +51,6 @@ jobs:
         run: |
           sudo apt update
           sudo apt-get -yqq install libpq-dev build-essential libcurl4-openssl-dev
-          gem install bundler:2.1.4
-          bundle install --jobs 4 --retry 3
           yarn install
       - name: Setup Database
         run: |
