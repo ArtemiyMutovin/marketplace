@@ -1,5 +1,4 @@
 class Seller::BaseController < ApplicationController
-
   layout 'seller'
 
   before_action :authenticate_user!, unless: :devise_controller?
