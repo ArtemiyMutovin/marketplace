@@ -14,5 +14,4 @@ class User < ApplicationRecord
   def seller?
     type == 'Seller'
   end
-
 end
