@@ -37,9 +37,6 @@ class AddDeviseToUsers < ActiveRecord::Migration[7.0]
       # t.timestamps null: false
     end
 
-    #remove_column( :users, :password_digest)
-    #change_column_default( :users, :email, '')
-
     # add_index :users, :email,                unique: true
     add_index :users, :reset_password_token, unique: true
     add_index :users, :confirmation_token,   unique: true
@@ -51,8 +48,5 @@ class AddDeviseToUsers < ActiveRecord::Migration[7.0]
                     :remember_created_at, :sign_in_count, :current_sign_in_at, :last_sign_in_at,
                     :current_sign_in_ip, :last_sign_in_ip, :confirmation_token, :confirmed_at,
                     :confirmation_sent_at, :unconfirmed_email)
-
-    #add_column :users, :password_digest, :string
-    #change_column_default( :users, :email, nil)
   end
 end
