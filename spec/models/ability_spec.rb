@@ -12,25 +12,11 @@ RSpec.describe Ability, type: :model do
 
     it { is_expected.not_to be_able_to :manage, :all }
 
-    it {
-      expect(subject).to be_able_to :update, create(:product, seller: user, category: category, company: company),
-                                    seller: user
-    }
+    it { is_expected.to be_able_to :update, create(:product, seller: user, company: company), seller: user }
+    it { is_expected.not_to be_able_to :update, create(:product, seller: other, company: company), seller: user }
 
-    it {
-      expect(subject).not_to be_able_to :update, create(:product, seller: other, category: category, company: company),
-                                        seller: user
-    }
-
-    it {
-      expect(subject).to be_able_to :destroy, create(:product, seller: user, category: category, company: company),
-                                    seller: user
-    }
-
-    it {
-      expect(subject).not_to be_able_to :destroy, create(:product, seller: other, category: category, company: company),
-                                        seller: user
-    }
+    it { is_expected.to be_able_to :destroy, create(:product, seller: user, company: company), seller: user }
+    it { is_expected.not_to be_able_to :destroy, create(:product, seller: other, company: company), seller: user }
   end
 
   describe 'user' do
