@@ -1,6 +1,7 @@
   <div>
     <table class="products">
       <tr>
+        <td>COMPANY</td>
         <td>TITLE</td>
         <td>PRICE</td>
         <td>CATEGORY</td>
@@ -8,6 +9,7 @@
       </tr>
       <% @products.each do |product| %>
         <tr>
+          <th><%= link_to product.company.name, company_path(product) %></th>
           <th><%= product.title %></th>
           <th><%= product.price %>$</th>
           <th><%= product.category.title %></th>

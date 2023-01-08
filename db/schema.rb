@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_12_093637) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_08_095135) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -34,7 +34,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_12_093637) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "seller_id"
+    t.bigint "company_id"
     t.index ["category_id"], name: "index_products_on_category_id"
+    t.index ["company_id"], name: "index_products_on_company_id"
     t.index ["seller_id"], name: "index_products_on_seller_id"
   end
 
@@ -68,6 +70,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_12_093637) do
   end
 
   add_foreign_key "products", "categories"
+  add_foreign_key "products", "companies"
   add_foreign_key "products", "users", column: "seller_id"
   add_foreign_key "users", "companies"
 end

@@ -7,14 +7,14 @@ RSpec.describe ProductsController, type: :controller do
   let(:category) { create(:category) }
 
   describe 'GET #index' do
-    let(:products) { create_list(:product, 3, category: category, seller: other) }
+    let(:products) { create_list(:product, 3, category: category, seller: other, company: company) }
 
     before do
-      sign_in(user)
       get :index
     end
 
     it 'populates an array of all products' do
+      get :index
       expect(assigns(:products)).to match_array(products)
     end
 

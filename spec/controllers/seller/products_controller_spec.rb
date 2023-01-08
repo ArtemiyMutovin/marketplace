@@ -3,11 +3,11 @@ require 'rails_helper'
 RSpec.describe Seller::ProductsController, type: :controller do
   let!(:other) { create :seller, :other, company: company }
   let(:company) { create(:company) }
-  let(:product) { create :product, category: category, seller: other }
+  let(:product) { create :product, category: category, seller: other, company: company }
   let(:category) { create(:category) }
 
   describe 'GET #index' do
-    let(:products) { create_list(:product, 3, seller: other, category: category) }
+    let(:products) { create_list(:product, 3, seller: other, category: category, company: company) }
 
     before do
       sign_in(other)
@@ -139,7 +139,7 @@ RSpec.describe Seller::ProductsController, type: :controller do
   end
 
   describe 'DELETE #destroy' do
-    let!(:product) { create(:product, seller: other, category: category) }
+    let!(:product) { create(:product, seller: other, category: category, company: company) }
 
     before do
       sign_in(other)
