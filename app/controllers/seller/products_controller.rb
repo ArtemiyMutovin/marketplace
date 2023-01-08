@@ -19,6 +19,7 @@ class Seller::ProductsController < ApplicationController
 
   def create
     @product = Product.new(product_params)
+    @product.company_id = @current_user.company_id
     @product.seller_id = @current_user.id
 
     if @product.save

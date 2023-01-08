@@ -9,6 +9,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :companies
+
   namespace :seller do
     resources :products
   end

@@ -1,0 +1,24 @@
+
+<h1><p>
+  <strong>Company name:</strong>
+  <%= @company.name %>
+</p></h1>
+
+<div>
+  <table>
+    <tr>
+      <td>TITLE</td>
+      <td>CATEGORY</td>
+      <td>SELLER</td>
+    </tr>
+    <% @company.products.each do |product| %>
+      <tr>
+        <th><%= product.title %></th>
+        <th><%= product.category.title %></th>
+        <th><%= product.seller.first_name %> <%= product.seller.last_name %></th>
+      </tr>
+    <% end %>
+  </table>
+</div>
+
+<h2><%= link_to 'Back home', root_path %></h2>
