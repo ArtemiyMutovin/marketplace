@@ -1,0 +1,13 @@
+<h2>All companies in this Marketplace:
+  <div>
+    <table>
+      <% @companies.each do |company| %>
+        <tr>
+          <th><%= link_to company.name, company_path(company) %></th>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</h2>
+
+<h2><%= link_to 'Back home', root_path %></h2>
