@@ -6,4 +6,8 @@ FactoryBot.define do
   factory :company do
     name
   end
+
+  trait :invalid do
+    name { nil }
+  end
 end

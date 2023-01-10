@@ -1,4 +1,6 @@
-  <div>
+<h2><%= link_to "Create company", new_company_path, class:'btn btn-warning' %></h2>
+<h2><%= link_to "Companies list", companies_path, class:'btn btn-primary' %></h2>
+<div>
     <table class="products">
       <tr>
         <td>COMPANY</td>
@@ -9,7 +11,7 @@
       </tr>
       <% @products.each do |product| %>
         <tr>
-          <th><%= link_to product.company.name, company_path(product) %></th>
+          <th><%= product.company.name %></th>
           <th><%= product.title %></th>
           <th><%= product.price %>$</th>
           <th><%= product.category.title %></th>
