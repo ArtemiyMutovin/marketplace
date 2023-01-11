@@ -46,6 +46,10 @@ RSpec.describe CompaniesController, type: :controller do
       expect(assigns(:company)).to be_a_new(Company)
     end
 
+    it 'assigns the requested Company seller to @company.sellers' do
+      expect(assigns(:company).sellers.first).to be_a_new(Seller)
+    end
+
     it 'renders new view' do
       expect(response).to render_template :new
     end

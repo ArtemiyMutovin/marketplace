@@ -9,6 +9,7 @@ class CompaniesController < ApplicationController
 
   def new
     @company = Company.new
+    @company.sellers.new
   end
 
   def create
@@ -28,6 +29,6 @@ class CompaniesController < ApplicationController
   end
 
   def company_params
-    params.require(:company).permit(:name)
+    params.require(:company).permit(:name, sellers_attributes: %i[email first_name last_name password])
   end
 end

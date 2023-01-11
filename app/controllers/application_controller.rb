@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(user)
-    user.seller? ? seller_products_path : products_path
+    user.seller? ? company_path(user) : products_path
   end
 
   def configure_permitted_parameters
